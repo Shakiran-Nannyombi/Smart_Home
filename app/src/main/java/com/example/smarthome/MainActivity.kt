@@ -3,45 +3,41 @@ package com.example.smarthome
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.smarthome.ui.components.BottomNavBar
+import com.example.smarthome.ui.screens.FavouritesScreen
+import com.example.smarthome.ui.screens.ThingsScreen
 import com.example.smarthome.ui.theme.SmartHomeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        // This allows Compose to draw behind system bars (like status bar)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             SmartHomeTheme {
-                Scaffold(modifier=Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name="Android",
-                        modifier=Modifier.padding(innerPadding)
-                    )
+                val navController = rememberNavController()
+                Scaffold(
+                    bottomBar = { BottomNavBar(navController) } // Ensure BottomNavBar is implemented
+                ) { paddingValues ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = "favourites",
+                        modifier = Modifier.padding(paddingValues)
+                    ) {
+                        composable("favourites") { FavouritesScreen() } // Ensure this screen exists
+                        composable("things") { ThingsScreen() } // Ensure this screen exists
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier=Modifier) {
-    Text(
-        text="Hello $name!",
-        modifier=modifier
-    )
-}
-
-@Preview(showBackground=true)
-@Composable
-fun GreetingPreview() {
-    SmartHomeTheme {
-        Greeting("Android")
     }
 }
