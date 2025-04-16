@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -48,11 +50,33 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation ("androidx.compose.ui:ui:1.4.0")
-    implementation ("androidx.compose.material3:material3:1.1.0" )
-    implementation ("androidx.compose.material:material:1.4.0")
-    implementation ("androidx.compose.foundation:foundation:1.4.0")
+    //noinspection UseTomlInstead
+    implementation("androidx.navigation:navigation-compose:2.8.9")
+    //noinspection UseTomlInstead
+    implementation ("androidx.compose.ui:ui:1.7.8")
+    //noinspection UseTomlInstead
+    implementation ("androidx.compose.material3:material3:1.3.2" )
+    //noinspection UseTomlInstead
+    implementation ("androidx.compose.material:material:1.7.8")
+    //noinspection UseTomlInstead
+    implementation ("androidx.compose.foundation:foundation:1.7.8")
+    //noinspection UseTomlInstead
+    implementation ("androidx.room:room-runtime:2.7.0")
+    //noinspection UseTomlInstead,KaptUsageInsteadOfKsp
+    kapt ()
+    //noinspection UseTomlInstead
+    implementation ("androidx.room:room-ktx:2.7.0")
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+// Kotlin coroutines for ViewModel
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+// Jetpack Compose dependencies (if not already added)
+    implementation ("androidx.compose.runtime:runtime-livedata:1.4.3")
+    implementation ("androidx.compose.ui:ui:1.4.3")
+
 
 
     testImplementation(libs.junit)
@@ -64,3 +88,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+private fun DependencyHandlerScope.kapt() {}

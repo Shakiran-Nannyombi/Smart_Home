@@ -7,8 +7,9 @@ import androidx.compose.ui.graphics.Color
 
 // Define the light theme color scheme
 private val LightThemeColors = lightColorScheme(
-    primary = Color.Blue,
-    secondary = Color.Blue
+    primary = Color(0xFFFFD700),
+    secondary =  Color(0xFFFFD700),
+    tertiary = Color(0xFF0077B6)
 )
 
 @Composable

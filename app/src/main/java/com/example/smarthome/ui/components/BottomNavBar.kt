@@ -44,7 +44,7 @@ fun BottomNavBar(navController: NavController) {
                     Icon(
                         imageVector = icon,
                         contentDescription = titles[index],
-                        tint = if (isSelected) Color.Blue else Color.Gray,
+                        tint = if (isSelected)  Color(0xFFFFD700) else Color.Gray,
                         modifier = Modifier.size(30.dp)
                     )
                 },
@@ -58,7 +58,7 @@ fun BottomNavBar(navController: NavController) {
                 selected = isSelected,
                 onClick = {
                     // Example: Allow only navigation for specific tabs
-                    if (item !in listOf("routines", "ideas", "settings")) {
+                    if (item !in listOf( "ideas", "settings")) {
                         navController.navigate(item) {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true

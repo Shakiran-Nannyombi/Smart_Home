@@ -1,0 +1,20 @@
+package com.example.smarthome.data.dao
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.example.smarthome.data.entities.Routine
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface RoutineDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRoutine(routine: Routine)
+
+    @Query("SELECT * FROM routines")
+    fun getAllRoutines(): LiveData<List<Routine>>
+
+    @Update
+    suspend fun updateRoutine(routine: Routine)
+
+    @Delete
+    suspend fun deleteRoutine(routine: Routine)
+}

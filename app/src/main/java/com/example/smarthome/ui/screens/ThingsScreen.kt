@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,25 +27,26 @@ fun ThingsScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                windowInsets = WindowInsets(0), // 👈 Removes default padding
+                windowInsets = WindowInsets(0.dp), // Removes default padding
                 title = {
                     Box(
-                        modifier =Modifier.fillMaxSize(),
-                        contentAlignment =Alignment.Center
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
-                    Text(
-                        text = "My Smart Home",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 30.sp,
-                        fontWeight =FontWeight.Bold
-                    ) }
+                        Text(
+                            text = "My Smart Home",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 },
                 actions = {
                     IconButton(onClick = { /* Handle search action */ }) {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "Search",
-                            tint = MaterialTheme.colorScheme.onPrimary, // or Color.White
+                            tint = MaterialTheme.colorScheme.onPrimary,
                             modifier = Modifier.size(30.dp)
                         )
                     }
@@ -54,7 +54,7 @@ fun ThingsScreen() {
                         Icon(
                             imageVector = Icons.Filled.Menu,
                             contentDescription = "Filter",
-                            tint = MaterialTheme.colorScheme.onPrimary, // or Color.White
+                            tint = MaterialTheme.colorScheme.onPrimary,
                             modifier = Modifier.size(30.dp)
                         )
                     }
@@ -73,7 +73,7 @@ fun ThingsScreen() {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.thingsdefault), // Use the image from drawable
+                painter = painterResource(id = R.drawable.thingsdefault),
                 contentDescription = "Things Grid Image",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -97,11 +97,11 @@ fun ThingsScreen() {
             )
 
             HorizontalDivider(
-                modifier=Modifier
+                modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxWidth(),
-                thickness=2.dp,
-                color=MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+                thickness = 2.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -132,16 +132,20 @@ fun ActionItem(text: String, icon: ImageVector) {
         Box(
             modifier = Modifier
                 .size(40.dp)
-                .background(MaterialTheme.colorScheme.secondary, shape = CircleShape),
+                .background(MaterialTheme.colorScheme.tertiary, shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Icon(imageVector = icon, contentDescription = text, tint = MaterialTheme.colorScheme.onSecondary)
+            Icon(
+                imageVector = icon,
+                contentDescription = text,
+                tint = MaterialTheme.colorScheme.onSecondary
+            )
         }
 
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.tertiary,
             modifier = Modifier.padding(start = 12.dp),
             fontSize = 18.sp
         )
@@ -159,17 +163,22 @@ fun ActionItem(text: String, painter: androidx.compose.ui.graphics.painter.Paint
         Box(
             modifier = Modifier
                 .size(40.dp)
-                .background(MaterialTheme.colorScheme.secondary, shape = CircleShape),
+                .background(MaterialTheme.colorScheme.tertiary, shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Image(painter = painter, contentDescription = text, modifier = Modifier.size(24.dp))
+            Image(
+                painter = painter,
+                contentDescription = text,
+                modifier = Modifier.size(24.dp)
+            )
         }
 
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(start = 12.dp)
+            color = MaterialTheme.colorScheme.tertiary,
+            modifier = Modifier.padding(start = 12.dp),
+            fontSize = 18.sp
         )
     }
 }
