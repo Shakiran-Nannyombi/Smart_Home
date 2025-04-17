@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.sp
 import com.example.smarthome.R
 import com.example.smarthome.data.entities.Routine
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun EmptyRoutinesView() {
@@ -57,14 +60,53 @@ fun EmptyRoutinesView() {
 fun RoutineList(
     routines: List<Routine>,
     onDeleteRoutine: (Routine) -> Unit,
+    onUpdateRoutine: (Routine) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(routines, key = { it.id }) { routine ->
-            RoutineItem(
-                routine = routine,
-                onDelete = { onDeleteRoutine(routine) }
-            )
+        items(routines) { routine ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp)
+                ) {
+                    Text(
+                        text = "Task Name: ${routine.taskName}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black // Explicitly set text color to black
+                    )
+                    Text(
+                        text = "Timing: ${routine.time}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black // Explicitly set text color to black
+                    )
+                    Text(
+                        text = "Recurrence: ${routine.recurrence}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Black // Explicitly set text color to black
+                    )
+                }
+                IconButton(onClick = { onUpdateRoutine(routine) }) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit Routine",
+                        tint = Color(0xFF0077B6) // Icon color
+                    )
+                }
+                IconButton(onClick = { onDeleteRoutine(routine) }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete Routine",
+                        tint = Color(0xFF0077B6) // Icon color
+                    )
+                }
+            }
         }
     }
 }

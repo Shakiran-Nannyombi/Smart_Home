@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.smarthome.data.database.RoutineDatabase
+import com.example.smarthome.data.viewmodel.RoutineViewModel
+import com.example.smarthome.data.viewmodel.RoutineViewModelFactory
 import com.example.smarthome.ui.components.BottomNavBar
 import com.example.smarthome.ui.screens.FavouritesScreen
 import com.example.smarthome.ui.screens.RoutinesScreen
@@ -23,12 +25,14 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val database = RoutineDatabase.getDatabase(applicationContext)
-        val routineDao = database.routineDao()
-
         setContent {
             SmartHomeTheme {
                 val navController = rememberNavController()
+                val routineViewModel: RoutineViewModel = ViewModelProvider(
+                    this,
+                    RoutineViewModelFactory(application)
+                )[RoutineViewModel::class.java]
+
                 Scaffold(
                     bottomBar = { BottomNavBar(navController) }
                 ) { paddingValues ->
@@ -40,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         composable("favourites") { FavouritesScreen() }
                         composable("things") { ThingsScreen() }
                         composable("routines") {
-                            RoutinesScreen(routineDao = routineDao)
+                            RoutinesScreen(routineViewModel = routineViewModel)
                         }
                     }
                 }

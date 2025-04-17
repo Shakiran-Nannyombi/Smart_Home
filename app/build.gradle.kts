@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,54 +40,48 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3" // Ensure this matches your Compose version
+    }
 }
 
 dependencies {
+    // Core AndroidX libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // Compose BOM for consistent versions
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    //noinspection UseTomlInstead
+    implementation("androidx.compose.material3:material3:1.2.0")
+
+    // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.8.9")
-    //noinspection UseTomlInstead
-    implementation ("androidx.compose.ui:ui:1.7.8")
-    //noinspection UseTomlInstead
-    implementation ("androidx.compose.material3:material3:1.3.2" )
-    //noinspection UseTomlInstead
-    implementation ("androidx.compose.material:material:1.7.8")
-    //noinspection UseTomlInstead
-    implementation ("androidx.compose.foundation:foundation:1.7.8")
-    //noinspection UseTomlInstead
-    implementation ("androidx.room:room-runtime:2.7.0")
-    //noinspection UseTomlInstead,KaptUsageInsteadOfKsp
-    kapt ()
-    //noinspection UseTomlInstead
-    implementation ("androidx.room:room-ktx:2.7.0")
-    // ViewModel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
-// Kotlin coroutines for ViewModel
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    // Room Database
+    implementation("androidx.room:room-runtime:2.7.0")
+    ksp("androidx.room:room-compiler:2.7.0") // Added Room annotation processor
+    implementation("androidx.room:room-ktx:2.7.0")
 
-// Jetpack Compose dependencies (if not already added)
-    implementation ("androidx.compose.runtime:runtime-livedata:1.4.3")
-    implementation ("androidx.compose.ui:ui:1.4.3")
+    // ViewModel and Coroutines
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
+    // Jetpack Compose dependencies
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
 
+    // Debugging tools
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
-
-private fun DependencyHandlerScope.kapt() {}

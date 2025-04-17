@@ -10,7 +10,7 @@ interface RoutineDao {
     suspend fun insertRoutine(routine: Routine)
 
     @Query("SELECT * FROM routines")
-    fun getAllRoutines(): LiveData<List<Routine>>
+    fun getAllRoutines(): Flow<List<Routine>>
 
     @Update
     suspend fun updateRoutine(routine: Routine)

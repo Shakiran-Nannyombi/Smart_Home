@@ -1,9 +1,11 @@
 package com.example.smarthome.ui.components
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,12 +16,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 
 @Composable
 fun BottomNavBar(navController: NavController) {
-    val items = listOf( "things","favourites", "routines", "ideas", "settings")
+    val items = listOf("things", "favourites", "routines", "ideas", "settings")
     val titles = listOf("Things", "Favorites", "Routines", "Ideas", "Settings")
 
     val iconMap = mapOf(
@@ -30,8 +30,8 @@ fun BottomNavBar(navController: NavController) {
         "settings" to Icons.Default.Settings
     )
 
-    BottomNavigation(
-        backgroundColor = Color.White
+    NavigationBar(
+        containerColor = Color.White
     ) {
         val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
@@ -39,12 +39,12 @@ fun BottomNavBar(navController: NavController) {
             val isSelected = currentRoute == item
             val icon = iconMap[item] ?: Icons.Default.Star
 
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
                         imageVector = icon,
                         contentDescription = titles[index],
-                        tint = if (isSelected)  Color(0xFFFFD700) else Color.Gray,
+                        tint = if (isSelected) Color(0xFFFFD700) else Color.Gray,
                         modifier = Modifier.size(30.dp)
                     )
                 },
@@ -52,13 +52,13 @@ fun BottomNavBar(navController: NavController) {
                     Text(
                         text = titles[index],
                         fontSize = 11.sp,
-                        color = if (isSelected) Color.Blue else Color.Black
+                        color = if (isSelected)  Color(0xFFFFD700) else Color.Black
                     )
                 },
                 selected = isSelected,
                 onClick = {
                     // Example: Allow only navigation for specific tabs
-                    if (item !in listOf( "ideas", "settings")) {
+                    if (item !in listOf("ideas", "settings")) {
                         navController.navigate(item) {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true

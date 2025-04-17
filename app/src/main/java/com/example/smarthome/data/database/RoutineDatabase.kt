@@ -7,7 +7,7 @@ import com.example.smarthome.data.dao.RoutineDao
 import com.example.smarthome.data.entities.Routine
 import android.content.Context
 
-@Database(entities = [Routine::class], version = 1)
+@Database(entities = [Routine::class], version = 1, exportSchema = false)
 abstract class RoutineDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao
 
@@ -15,13 +15,14 @@ abstract class RoutineDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: RoutineDatabase? = null
 
-        fun getDatabase(context : Context) : RoutineDatabase {
-            return INSTANCE ?: synchronized (this) {
+        fun getDatabase(context: Context): RoutineDatabase {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    RoutineDatabase ::class.java,
-                    "routines_database"
-                ).build()
+                    RoutineDatabase::class.java,
+                    "routine_database"
+                )
+                 .build()
                 INSTANCE = instance
                 instance
             }
