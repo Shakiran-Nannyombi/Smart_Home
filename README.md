@@ -50,7 +50,7 @@ We welcome contributions! If you’d like to improve this app:
 If you have any questions or suggestions, feel free to reach out:
 
 - **Email**: [devkiran256@gmail.com](mailto:devkiran256@example.com)
-- **GitHub Issues**: [Report a Bug](https://github.com/Shakiran-Nannyombi/smart-home/issues)
+- _**GitHub Issues**: [Report a Bug](https://github.com/Shakiran-Nannyombi/Smart_Home/issues)
 
 ---
 
