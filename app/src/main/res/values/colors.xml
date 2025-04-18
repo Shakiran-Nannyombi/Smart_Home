@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Add primaryColor -->
-    <color name="primaryColor">#FFD700</color> <!-- Gold -->
+    <color name="primaryColor">#FFE8E8E8</color>
+    <color name="primaryDarkColor">#FFE8E8E8</color>
+    <color name="accentColor">#FFE8E8E8</color>
 </resources>
