@@ -24,7 +24,7 @@ Welcome to the **Smart Home App**, your all-in-one solution for effortless home 
 ## 📥 Download the APK
 Ready to get started? Download the latest version of the app below:
 
-[**📥 Download Smart Home APK**](./app/build/outputs/apk/debug/app_debug.apk)
+[**📥 Download Smart Home APK**](./app_debug.apk)
 
 ---
 
@@ -49,7 +49,7 @@ We welcome contributions! If you’d like to improve this app:
 ## 📧 Contact
 If you have any questions or suggestions, feel free to reach out:
 
-- **Email**: [your_email@example.com](mailto:devkiran256@example.com)
+- **Email**: [devkiran256@gmail.com](mailto:devkiran256@example.com)
 - **GitHub Issues**: [Report a Bug](https://github.com/Shakiran-Nannyombi/smart-home/issues)
 
 ---
