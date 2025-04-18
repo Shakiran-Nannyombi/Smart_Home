@@ -81,13 +81,18 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                windowInsets = WindowInsets(0),
                 title = {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
                     Text(
                         text = "My Smart Home",
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold
-                    )
+                    ) }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = appColor

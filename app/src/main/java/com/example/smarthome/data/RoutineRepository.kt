@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class RoutineRepository(private val routineDao: RoutineDao) {
 
-    val readAllData: Flow<List<Routine>> = routineDao.getAllRoutines()
+    fun getAllRoutines(): Flow<List<Routine>> = routineDao.getAllRoutines()
 
     suspend fun addRoutine(routine: Routine) {
         routineDao.insertRoutine(routine)

@@ -1,0 +1,14 @@
+<resources>
+    <!-- Custom TimePickerDialog Theme -->
+    <style name="CustomTimePickerDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="colorAccent">@color/primaryColor</item>
+        <item name="android:colorAccent">@color/primaryColor</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/CustomDialogButton</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/CustomDialogButton</item>
+    </style>
+
+    <!-- Custom Button Style for Dialog -->
+    <style name="CustomDialogButton" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryColor</item>
+    </style>
+</resources>

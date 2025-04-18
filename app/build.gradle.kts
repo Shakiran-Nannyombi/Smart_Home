@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation ("io.coil-kt:coil-compose:2.2.2")
+    implementation ("androidx.compose.material3:material3-window-size-class:1.2.0")
+    implementation ("com.google.android.material:material:1.9.0")
 
     // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.8.9")

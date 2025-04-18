@@ -36,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -54,7 +55,8 @@ import java.util.Calendar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoutinesScreen(
-    routineViewModel: RoutineViewModel = viewModel()
+    routineViewModel: RoutineViewModel = viewModel(),
+    appColor: Color // Add appColor as a parameter
 ) {
     val coroutineScope = rememberCoroutineScope()
     val routines by routineViewModel.readAllData.observeAsState(initial = emptyList())
@@ -162,16 +164,31 @@ fun RoutinesScreen(
                                 val minute = calendar.get(Calendar.MINUTE)
 
                                 // Show TimePickerDialog
-                                TimePickerDialog(
+                                val timePickerDialog = TimePickerDialog(
                                     context,
                                     { _, selectedHour, selectedMinute ->
                                         // Update the time state with the selected time
-                                        time.value = TextFieldValue(String.format("%02d:%02d", selectedHour, selectedMinute))
+                                        val isPM = selectedHour >= 12
+                                        val formattedHour = if (selectedHour % 12 == 0) 12 else selectedHour % 12
+                                        val amPm = if (isPM) "PM" else "AM"
+                                        time.value = TextFieldValue(String.format("%02d:%02d %s", formattedHour, selectedMinute, amPm))
                                     },
                                     hour,
                                     minute,
-                                    true // Use 24-hour format
-                                ).show()
+                                    false // Use 12-hour format to show AM/PM
+                                )
+
+                                // Customize the dialog buttons programmatically
+                                timePickerDialog.setOnShowListener {
+                                    val positiveButton = timePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE)
+                                    val negativeButton = timePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE)
+
+                                    // Set custom colors for the buttons dynamically
+                                    positiveButton.setTextColor(appColor.toArgb())
+                                    negativeButton.setTextColor(appColor.toArgb())
+                                }
+
+                                timePickerDialog.show()
                             },
                             modifier = Modifier.fillMaxWidth()
                         ) {

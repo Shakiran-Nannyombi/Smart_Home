@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
             val appColor = settingsViewModel.appColor.collectAsState(initial = Color(0xFFFFD700)).value // Default to Gold if not available
 
             SmartHomeTheme(
-                appColor = appColor, // Pass the appColor to the theme
+                appColor = appColor, // Pass the appColor from SettingsViewModel
                 darkTheme = false
             ) {
                 Scaffold(
@@ -58,10 +58,14 @@ class MainActivity : ComponentActivity() {
                         startDestination = "things",
                         modifier = Modifier.padding(paddingValues)
                     ) {
-                        composable("favourites") { FavouritesScreen() }
-                        composable("things") { ThingsScreen() }
+                        composable("favourites") {
+                            FavouritesScreen(viewModel = routineViewModel) // Pass the routineViewModel here
+                        }
+                        composable("things") {
+                            ThingsScreen()
+                        }
                         composable("routines") {
-                            RoutinesScreen(routineViewModel = routineViewModel)
+                            RoutinesScreen(routineViewModel = routineViewModel, appColor = appColor) // Pass appColor to RoutinesScreen
                         }
                         composable("settings") {
                             SettingsScreen(
