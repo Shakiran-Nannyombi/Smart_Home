@@ -22,6 +22,7 @@ import com.example.smarthome.ui.screens.FavouritesScreen
 import com.example.smarthome.ui.screens.RoutinesScreen
 import com.example.smarthome.ui.screens.SettingsScreen
 import com.example.smarthome.ui.screens.ThingsScreen
+import com.example.smarthome.ui.screens.IdeasScreen
 import com.example.smarthome.ui.theme.SmartHomeTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,6 +73,9 @@ class MainActivity : ComponentActivity() {
                                 navController = navController, // Use the same navController
                                 onBackClick = { /* Handle back click */ }
                             )
+                        }
+                        composable("ideas") {
+                            IdeasScreen(onBackClick = { navController.popBackStack() }) // Add IdeasScreen
                         }
                     }
                 }
