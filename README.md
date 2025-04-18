@@ -24,7 +24,7 @@ Welcome to the **Smart Home App**, your all-in-one solution for effortless home 
 ## 📥 Download the APK
 Ready to get started? Download the latest version of the app below:
 
-[**📥 Download Smart Home APK**](./app_debug.apk)
+[**📥 Download Smart Home APK**](https://github.com/Shakiran-Nannyombi/Smart_Home/raw/master/app-debug.apk)
 
 ---
 
