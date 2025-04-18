@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -104,14 +105,14 @@ fun RoutinesScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { showDialog.value = true }, // Show dialog on FAB click
-                containerColor = MaterialTheme.colorScheme.tertiary,
+                containerColor = Color(0xFF0077B6),
                 shape = CircleShape,
                 modifier = Modifier.size(56.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add Routine",
-                    tint = MaterialTheme.colorScheme.onSecondary
+                    tint = Color.White
                 )
             }
         }

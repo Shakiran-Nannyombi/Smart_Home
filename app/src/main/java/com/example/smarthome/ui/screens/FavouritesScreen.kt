@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +27,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,7 +53,7 @@ fun FavouritesScreen() {
                     Text(
                         text = "My Smart Home",
                         color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 30.sp,
+                        fontSize = 24.sp,
                         fontWeight =FontWeight.Bold
                     ) }
                 },
@@ -69,14 +71,14 @@ fun FavouritesScreen() {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { /* Handle add click */ },
-                containerColor = MaterialTheme.colorScheme.tertiary,
+                containerColor = Color(0xFF0077B6),
                 shape = CircleShape, // Ensures the button is circular
                 modifier = Modifier.size(56.dp) // Standard size for FAB
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add",
-                    tint = MaterialTheme.colorScheme.onSecondary
+                    tint = Color.White
                 )
             }
         }
@@ -94,11 +96,13 @@ fun FavouritesScreen() {
                 Image(
                     painter = painterResource(id = R.drawable.stardefault), // Ensure drawable exists
                     contentDescription = "Star Image",
-                    modifier = Modifier.size(300.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(0.dp))
 
                 Text(
                     text = "No Favorites!",

@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,7 +37,7 @@ fun ThingsScreen() {
                         Text(
                             text = "My Smart Home",
                             color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 30.sp,
+                            fontSize = 24.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -77,7 +78,7 @@ fun ThingsScreen() {
                 contentDescription = "Things Grid Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(100.dp)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -132,13 +133,13 @@ fun ActionItem(text: String, icon: ImageVector) {
         Box(
             modifier = Modifier
                 .size(40.dp)
-                .background(MaterialTheme.colorScheme.tertiary, shape = CircleShape),
+                .background(Color(0xFF0077B6), shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = text,
-                tint = MaterialTheme.colorScheme.onSecondary
+                tint = Color.White
             )
         }
 
