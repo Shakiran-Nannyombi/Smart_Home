@@ -17,7 +17,9 @@ Welcome to the **Smart Home App**, your all-in-one solution for effortless home 
 
 ## 📱 Screenshots
 ![App screenshots](./Screen1.png)
+
 ![App screenshots](./Screen2.png)
+
 ![App screenshots](./Screen3.png)
 
 ---
