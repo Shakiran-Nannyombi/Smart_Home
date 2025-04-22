@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 ) { paddingValues ->
                     NavHost(
                         navController = navController,
-                        startDestination = "things",
+                        startDestination = "favourites",
                         modifier = Modifier.padding(paddingValues)
                     ) {
                         composable("favourites") {
@@ -66,7 +66,10 @@ class MainActivity : ComponentActivity() {
                             ThingsScreen()
                         }
                         composable("routines") {
-                            RoutinesScreen(routineViewModel = routineViewModel, appColor = appColor) // Pass appColor to RoutinesScreen
+                            RoutinesScreen(
+                                routineViewModel = routineViewModel,
+                                appColor = appColor // Pass appColor to RoutinesScreen
+                            )
                         }
                         composable("settings") {
                             SettingsScreen(

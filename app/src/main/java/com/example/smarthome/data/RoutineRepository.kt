@@ -19,4 +19,8 @@ class RoutineRepository(private val routineDao: RoutineDao) {
     suspend fun deleteRoutine(routine: Routine) {
         routineDao.deleteRoutine(routine)
     }
+
+    suspend fun routineExists(taskName: String, time: String, recurrence: String): Int {
+        return routineDao.routineExists(taskName, time, recurrence)
+    }
 }

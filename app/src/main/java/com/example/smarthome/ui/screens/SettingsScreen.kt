@@ -3,53 +3,18 @@ package com.example.smarthome.ui.screens
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -66,10 +31,9 @@ fun SettingsScreen(
     onBackClick: () -> Unit
 ) {
     val appColor = viewModel.appColor.collectAsState(initial = Color(0xFFFFD700)).value
-    val userName = viewModel.userName.collectAsState(initial = "").value
-    val userEmail = viewModel.userEmail.collectAsState(initial = "").value
+    val viewModelName = viewModel.userName.collectAsState(initial = "").value
+    val viewModelEmail = viewModel.userEmail.collectAsState(initial = "").value
 
-    // State to hold the profile image URI
     var profileImageUri by remember { mutableStateOf<String?>(null) }
 
     val launcher = rememberLauncherForActivityResult(
@@ -87,12 +51,13 @@ fun SettingsScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                    Text(
-                        text = "My Smart Home",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    ) }
+                        Text(
+                            text = "My Smart Home",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = appColor
@@ -115,46 +80,27 @@ fun SettingsScreen(
                 UserSettingsSection(
                     profileImage = profileImageUri,
                     onProfileImageClick = {
-                        launcher.launch("image/*") // Open image picker
+                        launcher.launch("image/*")
                     },
-                    name = userName,
-                    onNameChange = { viewModel.updateUserName(it) },
-                    email = userEmail,
-                    onEmailChange = { viewModel.updateUserEmail(it) }
+                    name = viewModelName,
+                    onNameChange = { viewModel.updateUserName(it) }, // Update ViewModel directly
+                    email = viewModelEmail,
+                    onEmailChange = { viewModel.updateUserEmail(it) } // Update ViewModel directly
                 )
             }
 
-            // App Appearance Section
             SettingsSection(title = "App Settings") {
                 ColorPaletteSetting(
-                    selectedColor = viewModel.appColor.collectAsState(initial = Color(0xFF6200EE)).value,
+                    selectedColor = appColor,
                     onColorSelected = { viewModel.updateAppColor(it) }
                 )
-
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+                DividerSection()
                 SwitchSettingItem(
                     title = "Auto Arm Security Alarm",
                     isChecked = viewModel.isAutoArmEnabled.collectAsState(initial = false).value,
                     onCheckedChange = { viewModel.updateAutoArmSetting(it) }
                 )
-
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+                DividerSection()
                 SwitchSettingItem(
                     title = "App Notifications",
                     isChecked = viewModel.isNotificationsEnabled.collectAsState(initial = false).value,
@@ -176,38 +122,19 @@ fun SettingsScreen(
                     isChecked = viewModel.isLocationAccessEnabled.collectAsState(initial = false).value,
                     onCheckedChange = { viewModel.updateLocationAccess(it) }
                 )
-
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+                DividerSection()
                 SwitchSettingItem(
                     title = "Camera Access",
                     isChecked = viewModel.isCameraAccessEnabled.collectAsState(initial = false).value,
                     onCheckedChange = { viewModel.updateCameraAccess(it) }
                 )
-
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+                DividerSection()
                 SwitchSettingItem(
                     title = "Microphone Access",
                     isChecked = viewModel.isMicrophoneAccessEnabled.collectAsState(initial = false).value,
                     onCheckedChange = { viewModel.updateMicrophoneAccess(it) }
                 )
             }
-
         }
     }
 }
@@ -220,26 +147,23 @@ private fun SettingsSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp) // Add vertical spacing between sections
+            .padding(vertical = 8.dp)
     ) {
-        // Title inside a card
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFF8F8F8) // Off-white background color
+                containerColor = Color(0xFFF8F8F8)
             ),
-           modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(16.dp),
+                modifier = Modifier.padding(16.dp),
                 color = Color.Gray,
                 fontSize = 20.sp
             )
         }
 
-        // Content outside the card
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
             content()
         }
@@ -247,30 +171,13 @@ private fun SettingsSection(
 }
 
 @Composable
-private fun SettingItem(
-    title: String,
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp), // Directly on the app's background
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = title,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            singleLine = true,
-            modifier = Modifier.weight(1f),
-            textStyle = MaterialTheme.typography.bodyLarge
-        )
-    }
+private fun DividerSection() {
+    HorizontalDivider(
+        modifier = Modifier.fillMaxWidth(),
+        thickness = 2.dp,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+    )
+    Spacer(modifier = Modifier.height(20.dp))
 }
 
 @Composable
@@ -307,12 +214,12 @@ private fun ColorPaletteSetting(
 ) {
     val colors = listOf(
         Color(0xFFFFD700),
-        Color(0xFF6200EE), // Purple
-        Color(0xFF03DAC6), // Teal
-        Color(0xFF018786), // Dark Teal
-        Color(0xFFBB86FC), // Light Purple
-        Color(0xFF03A9F4), // Light Blue
-        Color(0xFFE91E63)  // Pink
+        Color(0xFF6200EE),
+        Color(0xFF03DAC6),
+        Color(0xFF018786),
+        Color(0xFFBB86FC),
+        Color(0xFF03A9F4),
+        Color(0xFFE91E63)
     )
 
     Column(modifier = Modifier.padding(16.dp)) {
@@ -347,8 +254,8 @@ private fun ColorPaletteSetting(
 
 @Composable
 private fun UserSettingsSection(
-    profileImage: String?, // URL or null for the profile image
-    onProfileImageClick: () -> Unit, // Callback for when the profile image is clicked
+    profileImage: String?,
+    onProfileImageClick: () -> Unit,
     name: String,
     onNameChange: (String) -> Unit,
     email: String,
@@ -360,61 +267,49 @@ private fun UserSettingsSection(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Profile Image
         Box(
             modifier = Modifier
-                .size(64.dp)
+                .size(72.dp)
                 .clip(CircleShape)
-                .background(Color.Gray) // Placeholder background color
-                .clickable { onProfileImageClick() }, // Handle image click
-            contentAlignment = Alignment.Center
+                .clickable { onProfileImageClick() }
         ) {
             if (profileImage != null) {
-                // Load the profile image using Coil
                 Image(
                     painter = rememberAsyncImagePainter(profileImage),
                     contentDescription = "Profile Image",
                     modifier = Modifier.fillMaxSize()
                 )
             } else {
-                // Placeholder icon for no image
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Add Profile Image",
-                    tint = Color.White,
-                    modifier = Modifier.size(32.dp) // Adjust icon size
+                    contentDescription = "Default Profile",
+                    modifier = Modifier
+                        .size(72.dp)
+                        .align(Alignment.Center),
+                    tint = Color.Gray
                 )
             }
         }
 
-        Spacer(modifier = Modifier.width(16.dp)) // Space between image and text fields
+        Spacer(modifier = Modifier.width(16.dp))
 
-        // Name and Email Fields
-        Column(
-            modifier = Modifier.weight(1f)
-        ) {
+        Column(modifier = Modifier.weight(1f)) {
             OutlinedTextField(
                 value = name,
-                onValueChange = { newValue -> onNameChange(newValue) },
+                onValueChange = onNameChange,
                 label = { Text("Name") },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                textStyle = MaterialTheme.typography.bodyLarge.copy(
-                    textAlign = TextAlign.Start // Force left-to-right text direction
-                )
+                modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(8.dp)) // Space between fields
+            Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
                 value = email,
-                onValueChange = { newValue -> onEmailChange(newValue) },
+                onValueChange = onEmailChange,
                 label = { Text("Email") },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                textStyle = MaterialTheme.typography.bodySmall.copy(
-                    textAlign = TextAlign.Start // Force left-to-right text direction
-                )
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

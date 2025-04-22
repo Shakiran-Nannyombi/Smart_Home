@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -63,17 +64,10 @@ fun IdeasScreen(onBackClick: () -> Unit) {
                         text = "Smart Home Ideas",
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
                     )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.Default.Build,
-                            contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary
@@ -84,8 +78,10 @@ fun IdeasScreen(onBackClick: () -> Unit) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
+                    .padding(
+                        top = paddingValues.calculateTopPadding(), // Add top padding to avoid overlap with TopAppBar
+                        bottom = paddingValues.calculateBottomPadding() // Ensure content scrolls behind BottomNavBar
+                    )
             ) {
                 categories.forEach { (category, ideas) ->
                     item {

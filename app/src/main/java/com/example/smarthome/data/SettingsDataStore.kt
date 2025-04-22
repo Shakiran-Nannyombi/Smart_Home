@@ -46,6 +46,16 @@ fun DataStore<Preferences>.getString(
     }
 }
 
+// Retrieve a string value with nullable default
+fun DataStore<Preferences>.getNullableString(
+    key: Preferences.Key<String>,
+    defaultValue: String?
+): Flow<String?> {
+    return this.data.map { preferences ->
+        preferences[key] ?: defaultValue
+    }
+}
+
 // Retrieve a boolean value
 fun DataStore<Preferences>.getBoolean(
     key: Preferences.Key<Boolean>,

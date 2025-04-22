@@ -26,6 +26,11 @@ class RoutineViewModel(application: Application) : AndroidViewModel(application)
     fun addRoutine(routine: Routine) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                val exists = repository.routineExists(routine.taskName, routine.time, routine.recurrence)
+                if (exists > 0) {
+                    Log.e("RoutineViewModel", "Routine already exists: $routine")
+                    return@launch
+                }
                 repository.addRoutine(routine)
                 Log.d("RoutineViewModel", "Routine added: $routine")
             } catch (e: Exception) {

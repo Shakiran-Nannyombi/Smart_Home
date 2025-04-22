@@ -80,6 +80,7 @@ dependencies {
 
     // Jetpack Compose dependencies
     implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
 
     // Debugging tools
     debugImplementation(libs.androidx.ui.tooling)
